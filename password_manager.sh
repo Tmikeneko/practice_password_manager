@@ -2,18 +2,6 @@
 
 echo 'パスワードマネージャーへようこそ！'
 
-while true; do
-    read -p '次の選択肢から入力してください(Add Password/Get Password/Exit)：' Selection
-    case "$Selection" in 
-
-    # Add Password が入力された場合
-    "Add Password") 
-    read -p 'サービス名を入力してください：' Service_Name
-    read -p 'ユーザー名を入力してください：' User_Name
-    read -p 'パスワードを入力してください：' Password
-    gpg -d password.txt.gpg > password.txt 2> /dev/null 
-    
-    echo $Service_Name $User_Name $Password>> password.txt
 
     #パスワードを暗号化   
     gpg -c --yes password.txt
