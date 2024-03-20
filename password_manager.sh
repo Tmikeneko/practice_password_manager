@@ -11,13 +11,19 @@ while true; do
     read -p 'サービス名を入力してください：' Service_Name
     read -p 'ユーザー名を入力してください：' User_Name
     read -p 'パスワードを入力してください：' Password
+    gpg -d password.txt.gpg > password.txt 2> /dev/null
     echo $Service_Name $User_Name $Password>> password.txt
+
+    echo "パスワードを暗号化するためにパスフレーズを入力してください"   
+    gpg -c password.txt
+
+    rm password.txt
     echo 'パスワードの追加は成功しました。' ;;
 
     # Get Password が入力された場合
     "Get Password")
     read -p 'サービス名を入力してください：'  Get_Service_Name 
-    
+    gpg -d password.txt.gpg > password.txt 2> /dev/null
     ## サービス名が保存されていた場合
         if grep -q "^$Get_Service_Name" password.txt; then
            echo -n "サービス名："
@@ -26,6 +32,7 @@ while true; do
            grep "^$Get_Service_Name" password.txt | awk '{print $2}'
            echo -n "パスワード："
            grep "^$Get_Service_Name" password.txt | awk '{print $3}'
+           rm password.txt
     ## サービス名が保存されていなかった場合
         else
         echo "そのサービスは登録されていません。"      
