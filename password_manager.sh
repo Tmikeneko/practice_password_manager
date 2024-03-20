@@ -14,9 +14,8 @@ while true; do
     gpg -d password.txt.gpg > password.txt 2> /dev/null
     echo $Service_Name $User_Name $Password>> password.txt
 
-    echo "パスワードを暗号化するためにパスフレーズを入力してください"   
+    #パスワードを暗号化   
     gpg -c password.txt
-
     rm password.txt
     echo 'パスワードの追加は成功しました。' ;;
 
